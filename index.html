@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller = "myCtrl" ng-init="names = ['Liz', 'Tomi', 'Joyce', 'Glory']">
+ 
+<p>Input something in the input box:</p>
+<p>Name: <input type="text" ng-model="firstName"></p>
+<p>Name: <input type="text" ng-model="lastName"></p>
+
+<p> {{ firstName + " " +  lastName | uppercase}} </p>
+
+<p>List of a few friends and family:</p>
+<ul>
+	<li ng-repeat = "x in names">
+		{{ x }}
+	</li>
+</ul>
+
+<my-test-directive></my-test-directive>
+
+<form name="myForm">
+	Email:
+	<input type="email" name="myEmail" ng-model = "name">
+	<span ng-show = "myForm.myEmail.$error.email">Not a valid email address.</span>
+</form>
+
+<h3>Click the string bellow to show the showMyMiddleName function:</h3>
+<h4 ng-click = "showMyMiddleName()"> {{middleName}}</h2>
+
+<h2>{{ myUrl }}</h2>
+</div>
+
+<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope, $location) {
+		$scope.firstName = "Blessing";
+		$scope.lastName = "Omotayo";
+		$scope.middleName = "My middle Name is...";
+		$scope.showMyMiddleName = function() {
+			$scope.middleName = "Jane";
+		};
+		$scope.myUrl = $location.absUrl();
+	});
+
+	app.directive("myTestDirective", function () {
+		return {
+			template: "<h1>Made a new directive!</h1>"
+		};
+	});
+</script>
+
+</body>
+</html>
